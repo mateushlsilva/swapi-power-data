@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  api:
+    container_name: api
+    build:
+      context: .
+      dockerfile: ./app/Dockerfile
+    ports:
+      - '8000:8000'
+    env_file:
+      - ./app/.env
+    depends_on:
+      redis:
+        condition: service_started
+    networks:
+      - challenge-network
+
+  redis:
+    image: redis:7
+    container_name: gntech_redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+    networks:
+      - challenge-network
+
+volumes:
+  redisdata:
+    driver: local
+
+networks:
+  challenge-network:
+    driver: bridge
