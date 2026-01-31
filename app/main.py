@@ -1,8 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from app.core.lifespan import lifespan
+from app.api.v1.endpoints.swRoutes import router as sw
 
-
-app = FastAPI()
+app = FastAPI(title="SWAPI Power Data", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -12,3 +13,4 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(sw)
