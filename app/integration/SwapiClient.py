@@ -1,6 +1,6 @@
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 import httpx
-from config import settings
+from app.core.config import settings
 
 
 class SwapiClient:
@@ -12,7 +12,7 @@ class SwapiClient:
     @retry(
         stop=stop_after_attempt(3),
         wait=wait_exponential(multiplier=1, min=2, max=6),
-        retry=retry_if_exception_type(httpx.RequestError),
+        retry=retry_if_exception_type((httpx.RequestError, httpx.HTTPStatusError)),
         reraise=True
     )
     async def get_api(self, endpoint: str, name: str = None, page: int = None):
