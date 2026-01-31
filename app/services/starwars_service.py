@@ -14,7 +14,7 @@ class StarWarsService:
         self.recovery_time = 60
         self.cache_expiry = 3600
 
-    async def get_circuit(self, resource: str, **kwargs):
+    async def get_resources(self, resource: str, **kwargs):
         status = await self.redis.get(self.status_key)
         if status == "open":
             raise HTTPException(
