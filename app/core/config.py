@@ -8,7 +8,8 @@ class Settings(BaseSettings):
 
     DATABASE_URL: str
     REDIS: str
-    JWT_TOKEN: str
+    JWT_SECRET_KEY: str
+    ALGORITHM: str = "HS256"
     SWAPI_BASE: str
     
     model_config = SettingsConfigDict(

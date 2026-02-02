@@ -1,6 +1,6 @@
 from app.integration.SwapiClient import SwapiClient
 from app.core.config import settings
-from app.schemas.sw_resouce import SWResource
+from app.schemas.sw.sw_resouce import SWResource
 from redis.asyncio import Redis
 from fastapi import HTTPException
 import httpx
