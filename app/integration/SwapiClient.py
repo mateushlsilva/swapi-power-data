@@ -58,3 +58,6 @@ class SwapiClient:
 
     async def vehicles(self, name: str = None, page: int = None):
         return await self.get_api("vehicles", name=name, page=page)
+
+    async def get_detail(self, resource: str, id: str):
+        return await self.get_url(f"{self.base_url}/{resource}/{id}")
