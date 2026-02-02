@@ -4,8 +4,8 @@ from fastapi.responses import JSONResponse
 from app.core.deps import get_redis
 from app.services.starwars_service import StarWarsService
 from app.integration.SwapiClient import SwapiClient
-from app.schemas.sw_resouce import SWResource  
-from app.schemas.sw import SWPeopleRead, SWFilmsRead, SWPlanetsRead, SWSpeciesRead, SWStarshipsRead, SWVehiclesRead, SWAnyDetailsRead
+from app.schemas.sw.sw_resouce import SWResource  
+from app.schemas.sw.sw import SWPeopleRead, SWFilmsRead, SWPlanetsRead, SWSpeciesRead, SWStarshipsRead, SWVehiclesRead, SWAnyDetailsRead
 
 router = APIRouter(
     prefix="/sw",

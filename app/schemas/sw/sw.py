@@ -1,11 +1,11 @@
 from pydantic import BaseModel, RootModel
 from typing import Union
-from app.schemas.sw_people import SWPeople, SWPeopleDetails
-from app.schemas.sw_films import SWFilms, SWFilmsDetails
-from app.schemas.sw_planets import SWPlanets, SWPlanetsDetails
-from app.schemas.sw_species import SWSpecies, SWSpeciesDetails
-from app.schemas.sw_starships import SWStarships, SWStarshipsDetails
-from app.schemas.sw_vehicles import SWVehicles, SWVehiclesDetails
+from app.schemas.sw.sw_people import SWPeople, SWPeopleDetails
+from app.schemas.sw.sw_films import SWFilms, SWFilmsDetails
+from app.schemas.sw.sw_planets import SWPlanets, SWPlanetsDetails
+from app.schemas.sw.sw_species import SWSpecies, SWSpeciesDetails
+from app.schemas.sw.sw_starships import SWStarships, SWStarshipsDetails
+from app.schemas.sw.sw_vehicles import SWVehicles, SWVehiclesDetails
 
 class SWRead(BaseModel):
     count: int
