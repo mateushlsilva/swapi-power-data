@@ -26,6 +26,19 @@ class SwapiClient:
             )
             response.raise_for_status()
             return response.json()
+        
+
+    @retry(
+        stop=stop_after_attempt(2),
+        wait=wait_exponential(multiplier=1, min=2, max=4),
+        retry=retry_if_exception_type(httpx.RequestError),
+        reraise=True
+    )
+    async def get_url(self, url: str):
+        async with httpx.AsyncClient(timeout=self.timeout) as client:
+            response = await client.get(url)
+            response.raise_for_status()
+            return response.json()
 
 
     async def films(self, name: str = None, page: int = None):
