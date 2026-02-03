@@ -1,7 +1,9 @@
 from fastapi import Request
 from app.services.auth_service import AuthService
 from app.repository.firestore_repository import FirestoreRepository
+from app.services.starwars_service import StarWarsService
 from app.utils import jwt, auth, validated
+from app.integration.SwapiClient import SwapiClient
 
 async def get_redis(request: Request):
     return request.app.state.redis
@@ -24,3 +26,13 @@ async def get_auth_service(request: Request) -> AuthService:
         auth=auth_tool,
         validated=validators
     )
+
+
+async def get_firestore_repository(request: Request) -> FirestoreRepository:
+    db = request.app.state.db
+    return FirestoreRepository(db)
+
+async def get_swapi_service(request: Request) -> StarWarsService:
+    redis = request.app.state.redis
+    swapi_client = SwapiClient()
+    return StarWarsService(swapi_client, redis)
