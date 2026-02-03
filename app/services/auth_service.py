@@ -38,7 +38,6 @@ class AuthService:
        user = await self.repository.find_one_by_field("users", "email", login_data.email)
        if not user or not self.auth.verificar_senha(login_data.password, user["password"]):
            raise HTTPException(status_code=401, detail="Credenciais inválidas")
-       print("User authenticated:", user, flush=True)
        return user
 
 
