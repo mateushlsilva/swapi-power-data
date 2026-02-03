@@ -28,7 +28,8 @@ class AuthService:
             password=hashed_password,
             name=new_user_data.name,
             created_at=new_user_data.created_at,
-            is_active=new_user_data.is_active
+            is_active=new_user_data.is_active,
+            nivel="common"
         )
         return await self.repository.save("users", new_user.model_dump())
 

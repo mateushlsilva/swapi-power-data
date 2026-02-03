@@ -24,7 +24,7 @@ class FirestoreRepository:
             return data
         return None
     
-    async def list_with_filters(self, collection: str, filters: list[tuple] = None, limit: int = 10):
+    async def list_with_filters(self, collection: str, filters: list[tuple] = None, limit: int = 10, last_doc_id: str = None):
         """
         filters: lista de tuplas ex: [("status", "==", "active"), ("age", ">", 20)]
         """
@@ -32,9 +32,19 @@ class FirestoreRepository:
         if filters:
             for field, op, value in filters:
                 ref = ref.where(field, op, value)
+
+        ref = ref.order_by("__name__") # Ordena pelo ID do documento
+
+        if last_doc_id:
+            last_doc = await self.db.collection(collection).document(last_doc_id).get()
+            if last_doc.exists:
+                ref = ref.start_after(last_doc)
         
         docs = await ref.limit(limit).get()
-        return [doc.to_dict() for doc in docs]
+        return [
+            {**doc.to_dict(), "id": doc.id}
+            for doc in docs
+        ]
 
     async def save(self, collection: str, data: dict, doc_id: Optional[str] = None):
         """Comando centralizado para salvar/atualizar dados"""
