@@ -5,11 +5,15 @@ services:
     container_name: api
     build:
       context: .
-      dockerfile: ./app/Dockerfile
+      dockerfile: ./Dockerfile
     ports:
       - '8000:8000'
+    environment:
+      - PORT=8000
+      - REDIS=redis://gntech_redis:6379
+      - FIRESTORE_EMULATOR_HOST=firestore:8080
     env_file:
-      - ./app/.env
+      - .env
     depends_on:
       redis:
         condition: service_started

@@ -12,10 +12,10 @@ async def lifespan(app: FastAPI):
 
     if settings.ENVIRONMENT != "prod":
         import os
-        os.environ["FIRESTORE_EMULATOR_HOST"] = "localhost:8080"
-        os.environ["GOOGLE_CLOUD_PROJECT"] = "demo-test"
         app.state.db = firestore.AsyncClient(project="demo-test")
-        print("Firestore Emulator connected (localhost:8080)")
+        
+        emu_host = os.getenv("FIRESTORE_EMULATOR_HOST")
+        print(f"Firestore Emulator connected to: {emu_host}")
     else: 
         app.state.db = firestore.AsyncClient()
         print("Firestore Cloud connected")

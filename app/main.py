@@ -15,6 +15,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/health", tags=["Health"])
+async def health():
+    return {"status": "ok"}
+
 app.include_router(sw)
 app.include_router(auth_router)
 app.include_router(favorite_router)
